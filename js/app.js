@@ -1,7 +1,9 @@
+const deck = document.querySelector(".deck");
+const card = document.getElementsByClassName("card");
 /*
  * Create a list that holds all of your cards
  */
-const iconList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor","fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb" ];
+const iconList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor","fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor","fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 
 /*
  * Display the cards on the page
@@ -25,6 +27,13 @@ function shuffle(array) {
     return array;
 }
 
+// loop to add the class to the icon tag
+
+shuffle(iconList);
+for (let i = 0; i < card.length; i++){
+       card[i].firstElementChild.classList.add(iconList[i])
+    
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
