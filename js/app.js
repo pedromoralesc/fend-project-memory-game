@@ -35,6 +35,14 @@ for (let i = 0; i < card.length; i++){
     
 }
 
+// opening card function
+function openCard(e){
+    e.target.classList.add("show","open")
+}
+function match(e){
+    e.target.classList.add("match", "show")
+}
+deck.addEventListener('click', match)
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
