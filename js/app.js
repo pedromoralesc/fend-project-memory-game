@@ -1,9 +1,10 @@
 const deck = document.querySelector(".deck");
 const card = document.getElementsByClassName("card");
+const cardList = [...card];
+let openedCards=[];
 /*
  * Create a list that holds all of your cards
  */
-const iconList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor","fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor","fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 
 /*
  * Display the cards on the page
@@ -26,23 +27,65 @@ function shuffle(array) {
 
     return array;
 }
-
-// loop to add the class to the icon tag
-
-shuffle(iconList);
-for (let i = 0; i < card.length; i++){
-       card[i].firstElementChild.classList.add(iconList[i])
-    
-}
-
 // opening card function
 function openCard(e){
-    e.target.classList.add("show","open")
+    e.target.classList.toggle("open");
+    e.target.classList.toggle("show");
 }
-function match(e){
-    e.target.classList.add("match", "show")
+
+// loop throughall the cards and adds the event listener
+
+for (let i = 0; i < card.length; i++){
+       card[i].addEventListener("click", openCard);
+       card[i].addEventListener("click", opened);  
 }
-deck.addEventListener('click', match)
+
+// start the game function
+
+function start(){
+    let Scards = shuffle(cardList);
+    let tempArray=[];
+    for( let i = 0; i < Scards.length; i++){
+        tempArray.forEach.call(Scards, function(item){
+            deck.appendChild(item)
+        })
+    }
+}
+window.onload = start();
+
+// function that change the class if both match
+
+function match(){
+    openedCards[0].classList.add("match");
+    openedCards[1].classList.add("match");
+    openedCards[0].classList.remove("show", "open");
+    openedCards[1].classList.remove("show", "open");
+    console.log("yesss");
+}
+
+// function that change the class when the cards dont match
+function fail(){
+    openedCards[0].classList.add("fail");
+    openedCards[1].classList.add("fail");
+    setTimeout(function(){
+        openedCards[0].classList.remove("show", "open", "fail");
+        openedCards[1].classList.remove("show", "open", "fail");
+        openedCards = [];
+    },1000);
+}
+// function to open 2 cards and compare them
+function opened(e){
+    openedCards.push(this);
+    if(openedCards.length === 2 ){
+            if(openedCards[0].type === openedCards[1].type){
+                match();
+                openedCards = [];
+            }else{
+                fail();
+            }
+    }
+
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
