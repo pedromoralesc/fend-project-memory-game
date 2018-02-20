@@ -2,6 +2,9 @@ const deck = document.querySelector(".deck");
 const card = document.getElementsByClassName("card");
 const cardList = [...card];
 let openedCards=[];
+let count = document.querySelector(".moves");
+let moves =0;
+
 /*
  * Create a list that holds all of your cards
  */
@@ -29,10 +32,8 @@ function shuffle(array) {
 }
 // opening card function
 function openCard(e){
-    e.target.classList.toggle("open");
-    e.target.classList.toggle("show");
-    e.target.classList.toggle("animated");
-    e.target.classList.toggle("flipInY");
+    e.target.classList.add("open", "show", "animated", "flipInY");
+
 }
 
 // loop throughall the cards and adds the event listener
@@ -45,6 +46,7 @@ for (let i = 0; i < card.length; i++){
 // start the game function
 
 function start(){
+    count.innerHTML ="0 Moves";
     let Scards = shuffle(cardList);
     let tempArray=[];
     for( let i = 0; i < Scards.length; i++){
@@ -58,34 +60,41 @@ window.onload = start();
 // function that change the class if both match
 
 function match(){
-    openedCards[0].classList.add("match");
-    openedCards[1].classList.add("match");
     openedCards[0].classList.remove("show", "open", "flipInY");
     openedCards[1].classList.remove("show", "open", "flipInY");
-    openedCards[0].classList.add("rubberBand");
-    openedCards[1].classList.add("rubberBand");
-    
-    console.log("yesss");
+    openedCards[0].classList.add("match","rubberBand");
+    openedCards[1].classList.add("match","rubberBand");
 }
 
 // function that change the class when the cards dont match
 function fail(){
     openedCards[0].classList.remove("flipInY");
     openedCards[1].classList.remove("flipInY");
-    openedCards[0].classList.add("fail");
-    openedCards[1].classList.add("fail");
-    openedCards[0].classList.add("pulse");
-    openedCards[1].classList.add("pulse");
-    setTimeout(function(){
-        openedCards[0].classList.remove("show", "open", "fail");
-        openedCards[1].classList.remove("show", "open", "fail");
-        openedCards = [];
-    },1200);
+    openedCards[0].classList.add("fail","shake");
+    openedCards[1].classList.add("fail","shake");
+        setTimeout(function(){
+            openedCards[0].classList.remove("show", "open", "fail","shake","animated");
+            openedCards[1].classList.remove("show", "open", "fail","shake","animated");
+            openedCards = [];
+        },1200);
 }
+
+// function that add 1 to the count
+
+function addToCount(){
+    moves++;
+    if(moves < 2){
+        count.innerHTML = moves +" Move";
+    }else{
+        count.innerHTML = moves +" Moves";
+    } 
+}
+
 // function to open 2 cards and compare them
 function opened(e){
     openedCards.push(this);
     if(openedCards.length === 2 ){
+        addToCount();
             if(openedCards[0].type === openedCards[1].type){
                 match();
                 openedCards = [];
