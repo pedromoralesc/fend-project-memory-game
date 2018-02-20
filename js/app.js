@@ -31,6 +31,8 @@ function shuffle(array) {
 function openCard(e){
     e.target.classList.toggle("open");
     e.target.classList.toggle("show");
+    e.target.classList.toggle("animated");
+    e.target.classList.toggle("flipInY");
 }
 
 // loop throughall the cards and adds the event listener
@@ -58,20 +60,27 @@ window.onload = start();
 function match(){
     openedCards[0].classList.add("match");
     openedCards[1].classList.add("match");
-    openedCards[0].classList.remove("show", "open");
-    openedCards[1].classList.remove("show", "open");
+    openedCards[0].classList.remove("show", "open", "flipInY");
+    openedCards[1].classList.remove("show", "open", "flipInY");
+    openedCards[0].classList.add("rubberBand");
+    openedCards[1].classList.add("rubberBand");
+    
     console.log("yesss");
 }
 
 // function that change the class when the cards dont match
 function fail(){
+    openedCards[0].classList.remove("flipInY");
+    openedCards[1].classList.remove("flipInY");
     openedCards[0].classList.add("fail");
     openedCards[1].classList.add("fail");
+    openedCards[0].classList.add("pulse");
+    openedCards[1].classList.add("pulse");
     setTimeout(function(){
         openedCards[0].classList.remove("show", "open", "fail");
         openedCards[1].classList.remove("show", "open", "fail");
         openedCards = [];
-    },1000);
+    },1200);
 }
 // function to open 2 cards and compare them
 function opened(e){
