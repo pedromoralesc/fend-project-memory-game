@@ -93,6 +93,7 @@ function addToCount(){
     moves++;
         if(moves < 2){
             count.innerHTML = moves +" Move";
+
         }else{
             count.innerHTML = moves +" Moves";
         } 
@@ -163,6 +164,13 @@ function message(){
          modal.classList.add('is-visible');
         document.getElementById("finalMove").innerHTML = moves;
         document.getElementById("totalTime").innerHTML = finalTime;
+        if(moves >= 0 && moves < 8){
+            document.getElementById("raiting").innerHTML =" <i class='fa fa-star'></i> <i class='fa fa-star'></i> <i class='fa fa-star'></i>";
+        }else if( moves > 8 && moves < 16){
+            document.getElementById("raiting").innerHTML =" <i class='fa fa-star'></i> <i class='fa fa-star'></i>";
+        }else{
+            document.getElementById("raiting").innerHTML ="<i class='fa fa-star'></i>";
+        }
     }
 }
 
