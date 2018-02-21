@@ -4,6 +4,13 @@ const cardList = [...card];
 let openedCards=[];
 let count = document.querySelector(".moves");
 let moves =0;
+let matchingCards= document.getElementsByClassName("match");
+const stars = document.querySelectorAll(".stars li");
+const restartIcon = document.querySelector(".restart")
+let second = 0, minute = 0, hour=0;
+const timer = document.querySelector(".timer");
+let interval;
+const modal= document.querySelector(".modal");
 
 /*
  * Create a list that holds all of your cards
@@ -40,7 +47,8 @@ function openCard(e){
 
 for (let i = 0; i < card.length; i++){
        card[i].addEventListener("click", openCard);
-       card[i].addEventListener("click", opened);  
+       card[i].addEventListener("click", opened); 
+       card[i].addEventListener("click", message); 
 }
 
 // start the game function
@@ -83,11 +91,17 @@ function fail(){
 
 function addToCount(){
     moves++;
-    if(moves < 2){
-        count.innerHTML = moves +" Move";
-    }else{
-        count.innerHTML = moves +" Moves";
-    } 
+        if(moves < 2){
+            count.innerHTML = moves +" Move";
+        }else{
+            count.innerHTML = moves +" Moves";
+        } 
+        if(moves > 8 && moves < 16){
+            stars[2].style.visibility ="collapse"
+        }else if( moves >= 17){
+            stars[1].style.visibility ="collapse"
+        }
+    if(moves === 1){second = 0 ; minute = 0; hour = 0; time()}
 }
 
 // function to open 2 cards and compare them
@@ -104,6 +118,57 @@ function opened(e){
     }
 
 }
+// function for the timer
+function time(){
+    interval = setInterval(function(){
+        timer.innerHTML = "Time "+minute+" : "+second;
+        second++;
+        if(second == 60){
+            minute++;
+            second = 0;
+        }
+        if(minute == 60){
+            hour++;
+            minute = 0;
+        }
+    },1000);
+}
+// function to restart the game
+
+function reStart(){
+    // card class reload
+    for(let i = 0; i< cardList.length; i++){
+        if(cardList[i].classList.contains("match")){
+        cardList[i].classList.remove("animated", "match","rubberBand")
+        }else{
+            cardList[i].classList.remove("open", "show","flipInY", "animated")
+        }
+    }
+    // stars reload
+    for(var i = 0 ; i < 3; i++){
+        stars[i].style.visibility="visible";
+    }
+    moves = 0;
+    // timer reload
+    timer.innerHTML = "Time 0:0";
+    clearInterval(interval);
+    start()
+}
+
+// modal popup
+function message(){
+    if(matchingCards.length == 16){
+        clearInterval(interval);
+        finalTime = timer.innerHTML;
+         modal.classList.add('is-visible');
+        document.getElementById("finalMove").innerHTML = moves;
+        document.getElementById("totalTime").innerHTML = finalTime;
+    }
+}
+
+
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
@@ -8,7 +9,10 @@
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <link rel="stylesheet" href="css/app.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
 
     <div class="container">
@@ -17,71 +21,108 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+            <ul class="stars">
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+            </ul>
 
-        	<span class="moves"></span>
-
-            <div class="restart">
-        		<i class="fa "></i>
-        	</div>
+            <span class="moves"></span>
+            <div class="timer">Time: 0:0 </div>
+            <div class="restart" onclick="reStart()">
+                <i class="fa fa-repeat"></i>
+            </div>
         </section>
 
-        <ul class="deck" type ="">
-            <li class="card" type ="diamond">
+        <ul class="deck" type="">
+            <li class="card" type="diamond">
                 <i class="fa fa-diamond"></i>
             </li>
-            <li class="card" type ="plane">
+            <li class="card" type="plane">
                 <i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card" type ="anchor">
+            <li class="card" type="anchor">
                 <i class="fa fa-anchor"></i>
             </li>
-            <li class="card" type ="bolt">
+            <li class="card" type="bolt">
                 <i class="fa fa-bolt"></i>
             </li>
-            <li class="card" type ="cube">
+            <li class="card" type="cube">
                 <i class="fa fa-cube"></i>
             </li>
-            <li class="card" type ="anchor">
+            <li class="card" type="anchor">
                 <i class="fa fa-anchor"></i>
             </li>
-            <li class="card" type ="leaf">
+            <li class="card" type="leaf">
                 <i class="fa fa-leaf"></i>
             </li>
-            <li class="card" type ="bicycle">
+            <li class="card" type="bicycle">
                 <i class="fa fa-bicycle"></i>
             </li>
-            <li class="card" type ="diamond">
+            <li class="card" type="diamond">
                 <i class="fa fa-diamond"></i>
             </li>
-            <li class="card" type ="bomb">
+            <li class="card" type="bomb">
                 <i class="fa fa-bomb"></i>
             </li>
-            <li class="card" type ="leaf">
+            <li class="card" type="leaf">
                 <i class="fa fa-leaf"></i>
             </li>
-            <li class="card" type ="bomb">
+            <li class="card" type="bomb">
                 <i class="fa fa-bomb"></i>
             </li>
-            <li class="card " type ="bolt">
+            <li class="card " type="bolt">
                 <i class="fa fa-bolt"></i>
             </li>
-            <li class="card" type ="bicycle">
+            <li class="card" type="bicycle">
                 <i class="fa fa-bicycle"></i>
             </li>
-            <li class="card" type ="plane">
+            <li class="card" type="plane">
                 <i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card" type ="cube">
+            <li class="card" type="cube">
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
+        <!-- modal begin -->
+
+        <div class="modal">
+            <div class="modal-overlay modal-toggle"></div>
+            <div class="modal-wrapper modal-transition">
+                <div class="modal-header">
+                    <button class="modal-close modal-toggle"> X </button>
+                    <h1 class="modal-heading">You win!!</h1>
+                </div>
+
+                <div class="modal-body">
+                    <div class="modal-content">
+                        <p class="headModal">You did it 🤘</p>
+                        <div class="content">
+                            <p>Congratulations you beat the system!</p>
+                            <p>You made
+                                <span id="finalMove"> </span>
+                                moves
+                            </p>
+                            <p>in
+                                <span id="totalTime"> </span>
+                            </p>
+                             </div>
+                            <button class="modal-toggle bt" onclick="reStart()">Play again!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal end -->
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/modal.js"></script>
 </body>
+
 </html>
