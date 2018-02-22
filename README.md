@@ -12,10 +12,10 @@ We creat a deck of cards with the different icons and using a function shuffle a
 
 ## Code dependencies
 In this app we use.
-1.Jquery
-2.Bootstrap
-3.Animate.css
-4.HTML
-5.CSS
-6.JavaScript
-7.GoogleFonts
+* 1.Jquery
+* 2.Bootstrap
+* 3.Animate.css
+* 4.HTML
+* 5.CSS
+* 6.JavaScript
+* 7.GoogleFonts
