@@ -79,12 +79,14 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
-    pointer-events: none;
 }
 .deck .card.fail {
     cursor: default;
     background: #f70541;
     font-size: 33px;
+}
+.disable{
+    pointer-events: none;
 }
 /*
  * Styles for the Score Panel

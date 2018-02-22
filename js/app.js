@@ -39,16 +39,16 @@ function shuffle(array) {
 }
 // opening card function
 function openCard(e){
-    e.target.classList.add("open", "show", "animated", "flipInY");
+    e.target.classList.add("open", "show", "animated", "flipInY","disable");
 
 }
 
 // loop throughall the cards and adds the event listener
 
 for (let i = 0; i < card.length; i++){
-       card[i].addEventListener("click", openCard);
-       card[i].addEventListener("click", opened); 
-       card[i].addEventListener("click", message); 
+    card[i].addEventListener("click", openCard);
+    card[i].addEventListener("click", opened); 
+    card[i].addEventListener("click", message); 
 }
 
 // start the game function
@@ -72,6 +72,7 @@ function match(){
     openedCards[1].classList.remove("show", "open", "flipInY");
     openedCards[0].classList.add("match","rubberBand");
     openedCards[1].classList.add("match","rubberBand");
+    openedCards=[];
 }
 
 // function that change the class when the cards dont match
@@ -80,13 +81,30 @@ function fail(){
     openedCards[1].classList.remove("flipInY");
     openedCards[0].classList.add("fail","shake");
     openedCards[1].classList.add("fail","shake");
+    disable();
         setTimeout(function(){
             openedCards[0].classList.remove("show", "open", "fail","shake","animated");
             openedCards[1].classList.remove("show", "open", "fail","shake","animated");
+            enable();
             openedCards = [];
         },1200);
 }
+// function to disable the cards
+function disable(){
+    cardList.forEach(function(card){
+        card.classList.add('disable');
+    });
+}
+// funtion that enables the cards
 
+function enable(){
+    cardList.forEach(function(card){
+        card.classList.remove('disable');
+        for(var i = 0; i < matchingCards.length; i++){
+            matchingCards[i].classList.add("disable");
+        }
+    })
+}
 // function that add 1 to the count
 
 function addToCount(){
@@ -112,7 +130,6 @@ function opened(e){
         addToCount();
             if(openedCards[0].type === openedCards[1].type){
                 match();
-                openedCards = [];
             }else{
                 fail();
             }
@@ -140,9 +157,9 @@ function reStart(){
     // card class reload
     for(let i = 0; i< cardList.length; i++){
         if(cardList[i].classList.contains("match")){
-        cardList[i].classList.remove("animated", "match","rubberBand")
+        cardList[i].classList.remove("animated", "match","rubberBand","disable")
         }else{
-            cardList[i].classList.remove("open", "show","flipInY", "animated")
+            cardList[i].classList.remove("open", "show","flipInY", "animated","disable")
         }
     }
     // stars reload
